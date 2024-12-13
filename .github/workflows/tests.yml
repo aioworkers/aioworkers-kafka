@@ -1,0 +1,69 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - 'main'
+    tags: [ '*' ]
+  pull_request:
+    branches:
+      - 'main'
+
+jobs:
+  tests:
+    strategy:
+      max-parallel: 7
+      matrix:
+        os:
+          - ubuntu-22.04
+        python-version:
+          - '3.10'
+          - '3.11'
+          - '3.12'
+          - '3.13'
+          - pypy-3.9
+        include:
+          - os: ubuntu-22.04
+            python-version: '3.9'
+            coverage: true
+            lint: true
+          - os: macOS-latest
+            python-version: '3.9'
+          - os: windows-latest
+            python-version: '3.9'
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5.3.0
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          pip install -U hatch
+      - name: ruff
+        if: ${{ matrix.lint }}
+        run: |
+          hatch run lint:style aioworkers_kafka tests
+      - name: mypy
+        if: ${{ matrix.lint }}
+        run: |
+          hatch run lint:mypy aioworkers_kafka tests
+      - name: Tests with coverage
+        run: |
+          hatch run cov
+      - name: coverage.xml
+        if: ${{ matrix.coverage }}
+        run: |
+          hatch run coverage xml
+      - name: Upload coverage to Codecov
+        if: ${{ matrix.coverage }}
+        uses: codecov/codecov-action@v3.1.4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: true
