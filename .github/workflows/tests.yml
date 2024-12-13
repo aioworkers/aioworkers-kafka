@@ -59,7 +59,7 @@ jobs:
         run: |
           hatch run coverage xml
       - name: Upload coverage to Codecov
-        if: ${{ matrix.coverage }}
+        if: ${{ matrix.coverage && github.ref == 'refs/heads/main' }}
         uses: codecov/codecov-action@v5.1.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
