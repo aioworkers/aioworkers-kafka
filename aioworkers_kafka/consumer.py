@@ -27,6 +27,7 @@ class KafkaConsumer(AbstractReader, FormattedEntity, ExecutorEntity, AbstractCon
         }
         if content_type:
             kwargs["format"] = content_type
+        kwargs["executor"] = 1
         super().__init__(*args, **kwargs)
 
     def set_config(self, config):
