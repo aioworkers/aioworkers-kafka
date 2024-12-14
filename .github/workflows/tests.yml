@@ -53,7 +53,7 @@ jobs:
         uses: spicyparrot/kafka-kraft-action@v1.1.0
         with:
           kafka-version: "3.6.1"
-          kafka-topics: "test"
+          kafka-topics: "test,1"
       - name: Tests with coverage
         run: |
           hatch run cov
