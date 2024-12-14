@@ -21,12 +21,14 @@ jobs:
           - '3.11'
           - '3.12'
           - '3.13'
-          - pypy-3.9
         include:
           - os: ubuntu-22.04
             python-version: '3.9'
             coverage: true
             lint: true
+          - os: ubuntu-22.04
+            python-version: pypy-3.9
+            prepare: sudo apt install -y librdkafka-dev
           - os: macOS-latest
             python-version: '3.9'
           - os: windows-latest
@@ -35,6 +37,9 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
+      - name: Prepare
+        if: ${{ matrix.prepare }}
+        run: ${{ matrix.prepare }}
       - uses: actions/checkout@v4.2.2
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5.3.0
