@@ -1,0 +1,10 @@
+services:
+  kafka:
+    image: spotify/kafkaproxy
+    platform: linux/amd64
+    ports:
+      - 9092:9092
+      - 2181:2181
+    environment:
+      ADVERTISED_HOST: '127.0.0.1'
+      ADVERTISED_PORT: 9092
