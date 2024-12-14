@@ -53,6 +53,11 @@ jobs:
         if: ${{ matrix.lint }}
         run: |
           hatch run lint:mypy aioworkers_kafka tests
+      - name: Run Kafka KRaft Broker
+        uses: spicyparrot/kafka-kraft-action@v1.1.0
+        with:
+          kafka-version: "3.6.1"
+          kafka-topics: "test"
       - name: Tests with coverage
         run: |
           hatch run cov
