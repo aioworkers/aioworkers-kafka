@@ -35,6 +35,56 @@ aioworkers-kafka
   :target: https://github.com/pypa/hatch
 
 
+Usage
+-----
+
+config.yaml:
+
+.. code-block:: yaml
+
+    producer:
+      cls: aioworkers_kafka.producer.KafkaProducer
+      format: json
+      kafka:
+        bootstrap.servers: kafka:9092
+      topic: test
+
+    consumer:
+      cls: aioworkers_kafka.consumer.KafkaConsumer
+      format: json  # default format is json
+      kafka:
+        bootstrap.servers: kafka:9092
+        group.id: test
+      topics:
+        - test
+
+    worker:
+      cls: mymodule.MyWorker
+      input: .consumer
+      output: .producer
+      autorun: true
+
+
+mymodule.py:
+
+.. code-block:: python
+
+    from aioworkers.worker.base import Worker
+
+    class MyWorker(Worker):
+        async def run(self, value):  # consume value from input
+            assert isinstance(value, dict)
+
+            value["test"] += 1
+
+            return value  # produce value to output
+
+
+.. code-block:: shell
+
+    $ aioworkers -c config.yaml
+
+
 Development
 -----------
 
