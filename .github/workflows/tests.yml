@@ -26,9 +26,6 @@ jobs:
             python-version: '3.9'
             coverage: false
             lint: true
-          - os: ubuntu-24.04
-            python-version: pypy-3.9
-            prepare: sudo apt install -y librdkafka-dev
           - os: macOS-latest
             python-version: '3.9'
           - os: windows-latest
