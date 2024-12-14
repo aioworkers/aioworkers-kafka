@@ -26,8 +26,6 @@ jobs:
             python-version: '3.9'
             coverage: false
             lint: true
-          - os: macOS-latest
-            python-version: '3.9'
 
     runs-on: ${{ matrix.os }}
 
