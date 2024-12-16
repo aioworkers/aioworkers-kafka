@@ -50,7 +50,7 @@ jobs:
         run: |
           hatch run lint:mypy aioworkers_kafka tests
       - name: Run Kafka KRaft Broker
-        uses: spicyparrot/kafka-kraft-action@v1.1.0
+        uses: spicyparrot/kafka-kraft-action@v1.1.3
         with:
           kafka-version: "3.6.1"
           kafka-topics: "test,1"
