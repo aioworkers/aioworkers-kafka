@@ -1,4 +1,4 @@
-from aioworkers_kafka.configs import flat_conf
+from aioworkers_kafka.utils import flat_conf
 
 
 def test_flat_conf():
