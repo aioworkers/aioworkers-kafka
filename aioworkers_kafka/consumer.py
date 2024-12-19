@@ -122,7 +122,7 @@ class KafkaConsumer(AbstractReader, FormattedEntity, ExecutorEntity, AbstractCon
 
         raw_value = msg.value()
         if ct := headers.get("content-type"):
-            f = self.registry.get(ct)
+            f = self.registry.get(ct.decode())
             value = f.decode(msg.value())
         else:
             value = self.decode(msg.value())

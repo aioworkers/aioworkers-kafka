@@ -11,7 +11,7 @@ def test_decode_message_header_ct(mocker):
     data = {"test": 1}
     msg = mocker.Mock(
         value=lambda: json.dumps(data).encode(),
-        headers=lambda: {"content-type": CONTENT_TYPE},
+        headers=lambda: {"content-type": CONTENT_TYPE.encode()},
         key=lambda: None,
         topic=lambda: "test",
     )
@@ -20,7 +20,7 @@ def test_decode_message_header_ct(mocker):
     assert isinstance(result, MappingMessage)
     assert dict(result) == data
     assert result.value == data
-    assert result["content-type"] == CONTENT_TYPE
+    assert result["content-type"] == CONTENT_TYPE.encode()
 
 
 def test_decode_message_formatted(mocker):
@@ -67,7 +67,7 @@ async def test_get(bootstrap_servers, topic, mocker):
         msg = m.poll.return_value = mocker.Mock()
         msg.error.return_value = None
         msg.value.return_value = json.dumps(data).encode()
-        msg.headers.return_value = {"content-type": CONTENT_TYPE}
+        msg.headers.return_value = {"content-type": CONTENT_TYPE.encode()}
 
         async def produce():
             async with KafkaProducer(content_type=CONTENT_TYPE) as p:
