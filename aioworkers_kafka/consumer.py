@@ -7,7 +7,7 @@ from aioworkers.core.context import Context
 from aioworkers.core.formatter import FormattedEntity
 from confluent_kafka import KafkaError
 
-from aioworkers_kafka.configs import flat_conf
+from aioworkers_kafka.utils import flat_conf
 
 
 class KafkaConsumer(AbstractReader, FormattedEntity, ExecutorEntity, AbstractConnector):

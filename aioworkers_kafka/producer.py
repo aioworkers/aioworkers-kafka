@@ -9,7 +9,7 @@ from aioworkers.core.context import Context
 from aioworkers.core.formatter import FormattedEntity
 from confluent_kafka import KafkaException
 
-from aioworkers_kafka.configs import flat_conf
+from aioworkers_kafka.utils import flat_conf
 
 logger = logging.getLogger(__name__)
 
