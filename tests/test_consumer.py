@@ -82,4 +82,4 @@ async def test_get(bootstrap_servers, topic, mocker):
         result = await c.get()
 
         await task
-    assert result == data
+    assert dict(result) == data
