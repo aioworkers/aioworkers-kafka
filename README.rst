@@ -73,9 +73,11 @@ mymodule.py:
 
     class MyWorker(Worker):
         async def run(self, value):  # consume value from input
-            assert isinstance(value, dict)
+            assert isinstance(value, Mapping)
 
-            value["test"] += 1
+            out = dict(value)
+
+            value["ts"] = time()
 
             return value  # produce value to output
 
