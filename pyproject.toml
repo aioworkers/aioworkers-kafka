@@ -45,7 +45,7 @@ dev-test = [
 ]
 dev-lint = [
     "ruff==0.12.3",
-    "mypy==1.16.1",
+    "mypy==1.17.1",
 ]
 
 [project.entry-points.aioworkers]
