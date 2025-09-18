@@ -44,7 +44,7 @@ dev-test = [
     "pyyaml==6.0.2",
 ]
 dev-lint = [
-    "ruff==0.13.0",
+    "ruff==0.13.1",
     "mypy==1.16.1",
 ]
 
